@@ -21,7 +21,6 @@ blob.upload_from_filename(file, content_type='image/png')
 for doc in docs:
     if doc.get(u'flag') == 2:
         uid = doc.id
-        imageurl_side = doc.get('imageurl_side')
         break
 
 users_ref =db.collection(u'result').document(uid)
