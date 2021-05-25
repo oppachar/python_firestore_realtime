@@ -406,64 +406,48 @@ def front_cheekbone_have(list_points,image_side):
     
 error_index = 0 # 0:정상 1:랜드마크 검출 오류 2:얼굴형 오류 3:얼굴 비율 오류 4:헤어라인 오류 5:이목구비 계산 오류
 
-try:
-    # 이미지 읽어오기
-    image_front_origin = cv2.imread("front.png")
-    image_faceline = Image.open("front.png")
+# 이미지 읽어오기
+image_front_origin = cv2.imread("front.png")
+image_faceline = Image.open("front.png")
 
     # 얼굴형 분류 모델의 위치 = PATH
-    PATH = 'model83.pt'
+PATH = 'model83.pt'
 
-    image_front = imutils.resize(image_front_origin, height=500)  # image 크기 조절
+image_front = imutils.resize(image_front_origin, height=500)  # image 크기 조절
 
-    detector = dlib.get_frontal_face_detector()
-    predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
+detector = dlib.get_frontal_face_detector()
+predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-    ALL = list(range(0, 68))
-    RIGHT_EYEBROW = list(range(17, 22))
-    LEFT_EYEBROW = list(range(22, 27))
-    RIGHT_EYE = list(range(36, 42))
-    LEFT_EYE = list(range(42, 48))
-    NOSE = list(range(27, 36))
-    MOUTH_OUTLINE = list(range(48, 61))
-    MOUTH_INNER = list(range(61, 68))
-    JAWLINE = list(range(0, 17))  # index 1, 15 = 옆광대
+ALL = list(range(0, 68))
+RIGHT_EYEBROW = list(range(17, 22))
+LEFT_EYEBROW = list(range(22, 27))
+RIGHT_EYE = list(range(36, 42))
+LEFT_EYE = list(range(42, 48))
+NOSE = list(range(27, 36))
+MOUTH_OUTLINE = list(range(48, 61))
+MOUTH_INNER = list(range(61, 68))
+JAWLINE = list(range(0, 17))  # index 1, 15 = 옆광대
 
-    index = ALL
+index = ALL
     
-except:
-    error_index = 1
+error_index = 0
 
 try:
-    faceline_index = faceline(image_faceline,PATH)
-except:
-    error_index = 2
+    faceline_index = faceline(image_faceline, PATH)
 
-try:
     center, low, list_points = face_detection(image_front)
 
-except:
-    error_index = 3
-
-try:
     # 얼굴 비율 구할 때 필요한 맨 위 점 (헤어 라인 점)
     up, hair_line_point = hair_up(image_front,list_points)
     if (hair_line_point[1] >= list_points[LEFT_EYEBROW][0][1] or hair_line_point[1] >= list_points[RIGHT_EYEBROW][4][1]):
-        error_index = 4
+        error_index = 1
 
     #cv2.imshow("front result", image_front)
     cv2.imwrite('front_result.png', image_front)
 
+    face_w = abs(list_points[JAWLINE][1]-list_points[JAWLINE][15])[0] # 얼굴 가로
+    face_h = abs(list_points[JAWLINE][8]-hair_line_point)[1] # 얼굴 세로
 
-except:
-    error_index = 4
-
-print("오류", error_index)
-
-face_w = abs(list_points[JAWLINE][1]-list_points[JAWLINE][15])[0] # 얼굴 가로
-face_h = abs(list_points[JAWLINE][8]-hair_line_point)[1] # 얼굴 세로
-
-try:
     # 얼굴 상중하 비율 0: 1:1:1  1:상안부 길때  2:중안부 길 때  3:하안부 길때  4:상안부 제일 짧을때
     ratio = face_length_ratio(up, center, low)
 
@@ -494,6 +478,6 @@ try:
     # 입술가로 1: 큼 0: 평균 -1: 작음
     lips_result = lips_detection(list_points)
 
-
-except:
-    error_index = 5
+except NameError as e:
+    error_index = 1
+    print("오류", error_index)

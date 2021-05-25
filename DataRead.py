@@ -85,4 +85,4 @@ while True:
     query_watch = col_query1.on_snapshot(on_snapshot1)
     query_watch = col_query2.on_snapshot(on_snapshot2)
     # print(query_watch)
-    time.sleep(5)
+    time.sleep(3)

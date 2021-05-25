@@ -6,24 +6,12 @@ from FirebaseInit import *
 users_ref = db.collection(u'result')
 docs = users_ref.stream()
 
-file = 'front_result.png'
-
-bucket = storage.bucket()
-blob = bucket.blob('front_result/'+file)
-
-new_token = uuid4()
-metadata = {"firebaseStorageDownloadTokens": new_token} #access token이 필요하다.
-blob.metadata = metadata
-
-blob.upload_from_filename(file, content_type='image/png')
-
-
 for doc in docs:
-    if doc.get(u'flag') == 1:
-        uid = doc.id
-        imageurl_front = doc.get('imageurl_front')
-        # imageurl_side = doc.get('imageurl_side')
-        break
+        if doc.get(u'flag') == 1:
+            uid = doc.id
+            imageurl_front = doc.get('imageurl_front')
+            # imageurl_side = doc.get('imageurl_side')
+            break
 
 users_ref =db.collection(u'result').document(uid)
 
@@ -34,6 +22,17 @@ if error_index != 0:
     })
 
 else :
+    file = 'front_result.png'
+
+    bucket = storage.bucket()
+    blob = bucket.blob('front_result/'+file)
+
+    new_token = uuid4()
+    metadata = {"firebaseStorageDownloadTokens": new_token} #access token이 필요하다.
+    blob.metadata = metadata
+
+    blob.upload_from_filename(file, content_type='image/png')
+
     users_ref.set({
         u'error':0,
         u'imageurl_front':imageurl_front,

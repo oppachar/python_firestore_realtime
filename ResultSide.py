@@ -94,19 +94,6 @@ def front_cheekbone_have(list_points,image_side):
                 if (id == 152 or id == 377 or id == 400 or id == 378 or id == 379 or id == 365 or id == 397 or id == 288 or id == 361):  # 옆턱 index에만 점을 찍음
                     cv2.circle(image_side, (x, y), 2, (0, 255, 0), -1)
 
-                # if (id == 14 or id == 15 or id == 16 or id == 17 or id == 0 or id == 11 or id == 13):  # 입술 index에만 점을 찍음
-                #     # print(id, x, y)
-                #     cv2.circle(image_side, (x, y), 2, (0, 255, 0), -1)
-                #
-                # if (id == 164 or id == 2): # 인중
-                #     cv2.circle(image_side, (x, y), 2, (0, 255, 0), -1)
-
-                #if (id == 135):
-                #    cv2.circle(image_side, (x, y), 2, (0, 255, 0), -1)
-
-                #if (id == 149 or id == 176 or id == 148):
-                #    cv2.circle(image_side, (x, y), 2, (0, 255, 0), -1)
-
     m = (cheekbone[3][2] - cheekbone[1][2]) / (cheekbone[3][1] - cheekbone[1][1])  # 123번-192번 기울기
 
     #print("기울기", m)
@@ -120,30 +107,18 @@ def front_cheekbone_have(list_points,image_side):
 
     return cheek_side
 
-
 error_index = 0 # 0:정상 1:랜드마크 검출 오류 2:얼굴형 오류 3:얼굴 비율 오류 4:헤어라인 오류 5:이목구비 계산 오류
 
-try:
-    # 이미지 읽어오기
-    image_side_origin = cv2.imread("side.png")
-    image_side = imutils.resize(image_side_origin, height=500)
-    
-except:
-    error_index = 1
+image_side_origin = cv2.imread("side.png")
+image_side = imutils.resize(image_side_origin, height=500)
+image_front_origin = cv2.imread("front.png")
+image_front = imutils.resize(image_front_origin, height=500)  # image 크기 조절
 
-try:
-    image_front_origin = cv2.imread("front.png")
-    image_front = imutils.resize(image_front_origin, height=500)  # image 크기 조절
-
+try :
     center, low, list_points = face_detection(image_front)
 
-except:
-    error_index = 3
-
-try:
     cheek_front = front_cheekbone_have(list_points,image_side)
+    cv2.imwrite('side_result.png', image_side)
 
-except:
-    error_index = 5
-
-cv2.imwrite('side_result.png', image_side)
+except NameError as e:
+    error_index = 1
