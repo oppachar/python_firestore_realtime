@@ -480,4 +480,3 @@ try:
 
 except NameError as e:
     error_index = 1
-    print("오류", error_index)
