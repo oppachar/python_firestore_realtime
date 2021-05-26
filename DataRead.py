@@ -78,11 +78,10 @@ def on_snapshot2(col_snapshot, changes, read_time):
     
 while True:
     print('processing...')
-    col_query1 = db.collection(u'result').where(u'flag', u'==', 1)
-    col_query2 = db.collection(u'result').where(u'flag', u'==', 2)
+    col_query1 = db.collection(u'result').where(u'flag_front', u'==', 1)
+    col_query2 = db.collection(u'result').where(u'flag_side', u'==', 1)
     
-    # Watch the collection query
     query_watch = col_query1.on_snapshot(on_snapshot1)
     query_watch = col_query2.on_snapshot(on_snapshot2)
-    # print(query_watch)
+    
     time.sleep(4)

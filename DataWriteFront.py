@@ -7,7 +7,7 @@ users_ref = db.collection(u'result')
 docs = users_ref.stream()
 
 for doc in docs:
-        if doc.get(u'flag') == 1:
+        if doc.get(u'flag_front') == 1:
             uid = doc.id
             break
 
@@ -15,7 +15,8 @@ users_ref =db.collection(u'result').document(uid)
 
 if error_index != 0:
     users_ref.set({
-        u'flag':0,
+        u'flag_front':0,
+        u'flag_side':0,
         u'error':error_index
     })
 
@@ -31,9 +32,9 @@ else :
 
     blob.upload_from_filename(file, content_type='image/png')
 
-    users_ref.set({
+    users_ref.update({
         u'error':0,
-        u'landmark_front':'front_result.png',
+        u'flag_front':0,
         u'faceline_index':faceline_index,
         u'ratio':ratio,
         u'cheek_side':cheek_side,
