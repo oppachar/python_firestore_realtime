@@ -31,7 +31,7 @@ else :
     metadata = {"firebaseStorageDownloadTokens": new_token} #access token이 필요하다.
     blob.metadata = metadata
 
-    blob.upload_from_filename(file+uid, content_type='image/png')
+    blob.upload_from_filename(file, content_type='image/png')
 
     users_ref.update({
         u'flag_side':0,

@@ -411,7 +411,7 @@ image_front_origin = cv2.imread("front.png")
 image_faceline = Image.open("front.png")
 
     # 얼굴형 분류 모델의 위치 = PATH
-PATH = 'model83.pt'
+PATH = 'model_26.pt'
 
 image_front = imutils.resize(image_front_origin, height=500)  # image 크기 조절
 
