@@ -232,18 +232,18 @@ def nose_detection(list_points,image_front):
 
     # print("콧볼", ratio_nose)
 
-    if (ratio_nose >= 3.2 and ratio_nose <= 4.2): # 평균 3.825
+    if (ratio_nose >= 3.2 and ratio_nose <= 4.0): # 평균 3.825
         nose_result = 0
         nose_percent = 0
         #print("콧볼 크기는 평균입니다")
     elif (ratio_nose < 3.2):
         nose_result = 1
-        nose_percent = round(abs(3.925 - ratio_nose),2)
+        nose_percent = round(abs(3.6 - ratio_nose),2)
         #print("콧볼", ratio_nose)
         #print("콧볼 크기는 평균보다 %.1f%% 큰 편입니다" % (abs(nose[0][0] - list_points[RIGHT_EYE][3][0]) / face_w))
-    elif (ratio_nose >= 4.2):
+    elif (ratio_nose >= 4.0):
         nose_result = -1
-        nose_percent = round(abs(3.7 - ratio_nose),2)
+        nose_percent = round(abs(3.6 - ratio_nose),2)
         #print("콧볼", ratio_nose)
         #print("콧볼 크기 %.1f%% 작은 편입니다" % (abs(nose[0][0] - list_points[RIGHT_EYE][3][0]) / face_w))
 
@@ -280,17 +280,17 @@ def eyeh_detection(list_points):
 
     #print("눈 세로", ratio_eyeh)
 
-    if (ratio_eyeh >= 21.1 and ratio_eyeh <= 24):  # 평균비 = 24
+    if (ratio_eyeh >= 19 and ratio_eyeh <= 22):  # 평균비 = 24
         eyeh_result = 0
         eyeh_percent = 0
         # print("눈 세로 길이 평균")
-    elif (ratio_eyeh < 21.1):
+    elif (ratio_eyeh < 19):
         eyeh_result = 1
-        eyeh_percent = round(abs(22.55 - ratio_eyeh),2)
+        eyeh_percent = round(abs(20.5 - ratio_eyeh),2)
         # print("눈 세로 길이 평균보다 %.1f%% 긴 편" % (abs(23.8 - ratio_eyeh)))
-    elif (ratio_eyeh > 24):
+    elif (ratio_eyeh > 22):
         eyeh_result = -1
-        eyeh_percent = round(abs(22.55 - ratio_eyeh),2)
+        eyeh_percent = round(abs(20.5 - ratio_eyeh),2)
         # print("눈 세로 길이 평균보다 %.1f%% 짧은 편" % (abs(23.8 - ratio_eyeh)))
 
     return eyeh_result, eyeh_percent
