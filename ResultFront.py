@@ -155,7 +155,6 @@ def hair_up (img1,list_points):
 
 def face_length_ratio (up, center, low):
     # 상중하안부 비율의 기준 정하기
-
     if (up < center):
         if (up < low):
             criteria = up
@@ -280,17 +279,17 @@ def eyeh_detection(list_points):
 
     #print("눈 세로", ratio_eyeh)
 
-    if (ratio_eyeh >= 19 and ratio_eyeh <= 22):  # 평균비 = 24
+    if (ratio_eyeh >= 19 and ratio_eyeh <= 23.6):  # 평균비 = 24
         eyeh_result = 0
         eyeh_percent = 0
         # print("눈 세로 길이 평균")
     elif (ratio_eyeh < 19):
         eyeh_result = 1
-        eyeh_percent = round(abs(20.5 - ratio_eyeh),2)
+        eyeh_percent = round(abs(21.3 - ratio_eyeh),2)
         # print("눈 세로 길이 평균보다 %.1f%% 긴 편" % (abs(23.8 - ratio_eyeh)))
-    elif (ratio_eyeh > 22):
+    elif (ratio_eyeh > 23.6):
         eyeh_result = -1
-        eyeh_percent = round(abs(20.5 - ratio_eyeh),2)
+        eyeh_percent = round(abs(21.3 - ratio_eyeh),2)
         # print("눈 세로 길이 평균보다 %.1f%% 짧은 편" % (abs(23.8 - ratio_eyeh)))
 
     return eyeh_result, eyeh_percent
@@ -302,11 +301,11 @@ def lips_detection(list_points):
     ratio_lips = face_w / lips_w
     #print("입술", ratio_lips)
 
-    if (ratio_lips >= 3.0 and ratio_lips <= 3.25):
+    if (ratio_lips >= 2.3 and ratio_lips <= 3.3):
         lips_result = 0 # 입술 가로 길이 평균
-    elif (ratio_lips < 3.0):
+    elif (ratio_lips < 2.3):
         lips_result = 1 # 입술 가로 길이 긴 편
-    elif (ratio_lips > 3.25):
+    elif (ratio_lips > 3.3):
         lips_result = -1 # 입술 가로 길이 짧은 편
 
     return lips_result
