@@ -82,13 +82,13 @@ def front_cheekbone_have(list_points,image_side):
 
                 #### 출력용 ####
 
-                if (id == 8 or id == 168 or id == 197 or id == 5 or id == 1 or id == 2):  # 콧대 index에만 점을 찍음
+                if (id == 8 or id == 168 or id == 197 or id == 5 or id == 1 or id == 2 or id == 164):  # 콧대 index에만 점을 찍음
                     cv2.circle(image_side, (x, y), 2, (0, 255, 0), -1)
                     
                 if (id == 9 or id == 8 or id == 168 or id == 6 or id == 197 or id == 195 or id == 5 or id == 4 or id == 1 or id == 2):  # 콧대 index에만 점을 찍음
                     cv2.circle(image_side, (x, y), 2, (0, 255, 0), -1)
 
-                if (id == 18 or id == 200 or id == 199 or id == 175):  # 앞턱 index에만 점을 찍음
+                if (id == 18 or id == 200 or id == 199 or id == 175 or id ==0 or id == 13 or id == 14 or id == 15 or id == 16 or id == 17):  # 앞턱 index에만 점을 찍음
                     cv2.circle(image_side, (x, y), 2, (0, 255, 0), -1)
 
                 if (id == 152 or id == 377 or id == 400 or id == 378 or id == 379 or id == 365 or id == 397 or id == 288 or id == 361):  # 옆턱 index에만 점을 찍음
@@ -109,7 +109,7 @@ def front_cheekbone_have(list_points,image_side):
 
 error_index = 0 # 0:정상 1:랜드마크 검출 오류 2:얼굴형 오류 3:얼굴 비율 오류 4:헤어라인 오류 5:이목구비 계산 오류
 
-image_side_origin = cv2.imread("side.png")
+image_side_origin = cv2.imread("side.jpg")
 image_side = imutils.resize(image_side_origin, height=500)
 image_front_origin = cv2.imread("front.png")
 image_front = imutils.resize(image_front_origin, height=500)  # image 크기 조절
@@ -122,3 +122,7 @@ try :
 
 except NameError as e:
     error_index = 1
+
+cv2.imshow("result", image_side)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
