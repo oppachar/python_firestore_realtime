@@ -122,7 +122,3 @@ try :
 
 except NameError as e:
     error_index = 1
-
-cv2.imshow("result", image_side)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
