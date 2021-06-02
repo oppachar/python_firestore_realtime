@@ -109,7 +109,7 @@ def front_cheekbone_have(list_points,image_side):
 
 error_index = 0 # 0:정상 1:랜드마크 검출 오류 2:얼굴형 오류 3:얼굴 비율 오류 4:헤어라인 오류 5:이목구비 계산 오류
 
-image_side_origin = cv2.imread("side.jpg")
+image_side_origin = cv2.imread("side.png")
 image_side = imutils.resize(image_side_origin, height=500)
 image_front_origin = cv2.imread("front.png")
 image_front = imutils.resize(image_front_origin, height=500)  # image 크기 조절
